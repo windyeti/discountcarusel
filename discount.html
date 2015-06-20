@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<title>"Расчет скидки для Карусели"</title>
+<head>
+    <meta charset="utf-8"/>
+    <style>
+        .all {
+            width: 200px;
+            text-align: center;
+            font-size: 0;
+            padding: 20px;
+            margin: 20px auto;
+            border: 1px solid lightgrey;
+            border-radius: 5px;
+        }
+        .price {
+            display: block;
+            font: 24px Arial;
+            text-align: center;
+            text-transform: uppercase;
+            color: lightsteelblue;
+        }
+        .areaforprice {
+            display: block;
+            font: 24px Arial;
+            text-align: center;
+            color: lightgray;
+            margin: 0 auto 20px;
+            border-radius: 5px;
+        }
+        .discount {
+            width: 120px;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 5px;
+        }
+        .allnumberofdiscount {
+            width: 120px;
+            height: 20px;
+            font: 10px Arial;
+            text-align: center;
+            color: lightgray;
+            margin: 0 auto 5px;
+        }
+        .button, .reset {
+            display: inline-block;
+            /*float: left;*/
+            margin: 0 5px;
+            width: 80px;
+            height: 40px;
+            border-radius: 5px;
+            background: lightgray;
+
+            font: 16px Arial;
+            text-align: center;
+            line-height: 40px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        .button {
+            background: forestgreen;
+        }
+
+    </style>
+</head>
+<body>
+<section>
+    <div class="all">
+        <div class="container">
+            <span class="price">old price</span>
+            <textarea name="oldprice" cols="12" rows="1" class="areaforprice"></textarea>
+            <span class="price">new price</span>
+            <textarea name="newprice" cols="12" rows="1" class="areaforprice"></textarea>
+            <span class="price">DISCOUNT</span>
+            <div class="discount areaforprice">123</div>
+            <div class="discount allnumberofdiscount">123</div>
+            <div class="button">do it!</div>
+            <div class="reset">reset</div>
+        </div>
+    </div>
+</section>
+<script>
+    var container = document.getElementsByClassName('all');
+
+    var calculator = new Calculator({
+        elem: container
+    });
+
+    function Calculator(options) {
+        var elem = options.elem;
+
+
+    }
+
+</script>
+</body>
+</html>
