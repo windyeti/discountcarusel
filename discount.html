@@ -56,9 +56,15 @@
             line-height: 40px;
             text-transform: uppercase;
             color: #fff;
+
+            cursor: pointer;
         }
         .button {
             background: forestgreen;
+        }
+        .green {
+            color: #fff;
+            background-color: green;
         }
 
     </style>
@@ -72,24 +78,95 @@
             <span class="price">new price</span>
             <textarea name="newprice" cols="12" rows="1" class="areaforprice"></textarea>
             <span class="price">DISCOUNT</span>
-            <div class="discount areaforprice">123</div>
-            <div class="discount allnumberofdiscount">123</div>
-            <div class="button">do it!</div>
-            <div class="reset">reset</div>
+            <div id="fieldDiscountRound" class="discount areaforprice"></div>
+            <div id="fieldDiscount" class="discount allnumberofdiscount"></div>
+            <div class="buttonfooter">
+                <div class="button">do it!</div>
+                <div class="reset">reset</div>
+            </div>>
         </div>
     </div>
 </section>
 <script>
-    var container = document.getElementsByClassName('all');
+    document.getElementsByTagName('textarea')[0].focus();
+
+    var all = document.getElementsByClassName('all')[0];
 
     var calculator = new Calculator({
-        elem: container
+        elem: all
     });
 
     function Calculator(options) {
         var elem = options.elem;
+        var footer = elem.getElementsByClassName('buttonfooter')[0];
 
+        footer.onclick = onClick;
 
+        function onClick(event) {
+            var event = event || window.event;
+            var target = event.target;
+
+            function replaceToDot(a) {
+                var numberPosition = a.indexOf(",");
+                if (numberPosition < 0) {
+                    return a;
+                } else {
+                    a = a.slice(0, numberPosition) + '.' + a.slice(numberPosition + 1);
+                }
+                return a;
+            }
+            if (!(target.className == 'button' || target.className == 'reset')) return;
+            if ( target.className == 'button' ) {
+                var textareaOldPrice = document.getElementsByTagName('textarea')[0];
+                var textareaNewPrice = document.getElementsByTagName('textarea')[1];
+
+                var textareaOldPriceValue = textareaOldPrice.value;
+                var textareaNewPriceValue = textareaNewPrice.value;
+
+                if (textareaOldPriceValue == '') {
+                    textareaOldPrice.focus();
+                    return;
+                } else if (textareaNewPriceValue == '') {
+                    textareaNewPrice.focus();
+                    return;
+                }
+
+                var textareaOldPriceValue = replaceToDot(textareaOldPriceValue);
+                var textareaNewPriceValue = replaceToDot(textareaNewPriceValue);
+
+                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
+                var fieldDiscount = document.getElementById('fieldDiscount');
+
+                var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
+
+                fieldDiscountRound.innerHTML = Math.round(discount);
+                if (Math.round(discount) < 20) {
+                    fieldDiscountRound.classList.add('green');
+                } else {
+                    fieldDiscountRound.classList.remove('green')
+                }
+                fieldDiscount.innerHTML = discount;
+            }
+            if ( target.className == 'reset' ) {
+                var textareaOldPrice = document.getElementsByTagName('textarea')[0];
+                var textareaNewPrice = document.getElementsByTagName('textarea')[1];
+
+                var textareaOldPriceValue = textareaOldPrice.value = '';
+                var textareaNewPriceValue = textareaNewPrice.value = '';
+
+                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
+                var fieldDiscount = document.getElementById('fieldDiscount');
+                fieldDiscountRound.innerHTML = '';
+                fieldDiscount.innerHTML = '';
+
+                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
+                fieldDiscountRound.classList.remove('green');
+
+                document.getElementsByTagName('textarea')[0].focus();
+
+            }
+
+        }
     }
 
 </script>
