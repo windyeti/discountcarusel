@@ -140,7 +140,7 @@
                 var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
 
                 fieldDiscountRound.innerHTML = Math.round(discount);
-                if (Math.round(discount) < 20) {
+                if (Math.round(discount) > 20) {
                     fieldDiscountRound.classList.add('green');
                 } else {
                     fieldDiscountRound.classList.remove('green')
