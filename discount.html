@@ -74,14 +74,14 @@
     <div class="all">
         <div class="container">
             <span class="price">old price</span>
-            <textarea name="oldprice" cols="12" rows="1" class="areaforprice"></textarea>
+            <textarea name="oldprice" cols="12" rows="1" class="areaforprice" tabindex="1"></textarea>
             <span class="price">new price</span>
-            <textarea name="newprice" cols="12" rows="1" class="areaforprice"></textarea>
+            <textarea name="newprice" cols="12" rows="1" class="areaforprice" tabindex="2"></textarea>
             <span class="price">DISCOUNT</span>
             <div id="fieldDiscountRound" class="discount areaforprice"></div>
             <div id="fieldDiscount" class="discount allnumberofdiscount"></div>
             <div class="buttonfooter">
-                <div class="button">do it!</div>
+                <div class="button" tabindex="3">do it!</div>
                 <div class="reset">reset</div>
             </div>>
         </div>
@@ -101,6 +101,53 @@
         var footer = elem.getElementsByClassName('buttonfooter')[0];
 
         footer.onclick = onClick;
+        document.onkeydown = onKeyDown;
+
+        function onKeyDown(event) {
+            if(event.keyCode == 13) {
+
+                function replaceToDot(a) {
+                    var numberPosition = a.indexOf(",");
+                    if (numberPosition < 0) {
+                        return a;
+                    } else {
+                        a = a.slice(0, numberPosition) + '.' + a.slice(numberPosition + 1);
+                    }
+                    return a;
+                }
+
+                var textareaOldPrice = document.getElementsByTagName('textarea')[0];
+                var textareaNewPrice = document.getElementsByTagName('textarea')[1];
+
+                var textareaOldPriceValue = textareaOldPrice.value;
+                var textareaNewPriceValue = textareaNewPrice.value;
+
+                if (textareaOldPriceValue == '') {
+                    textareaOldPrice.focus();
+                    return;
+                } else if (textareaNewPriceValue == '') {
+                    textareaNewPrice.focus();
+                    return;
+                }
+
+                var textareaOldPriceValue = replaceToDot(textareaOldPriceValue);
+                var textareaNewPriceValue = replaceToDot(textareaNewPriceValue);
+
+                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
+                var fieldDiscount = document.getElementById('fieldDiscount');
+
+                var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
+
+                fieldDiscountRound.innerHTML = Math.round(discount);
+                if (Math.round(discount) > 20) {
+                    fieldDiscountRound.classList.add('green');
+                } else {
+                    fieldDiscountRound.classList.remove('green')
+                }
+                fieldDiscount.innerHTML = discount;
+                return false;
+            }
+        }
 
         function onClick(event) {
             var event = event || window.event;
