@@ -66,6 +66,25 @@
             color: #fff;
             background-color: green;
         }
+        .help {
+            float: left;
+            margin-top: -7px;
+            margin-left: -7px;
+            font: 16px Arial;
+            font-weight: none;
+            color: lightgray;
+            
+            width: 16px;
+            height: 16px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            border: 1px solid lightgray;
+            cursor: pointer;
+        }
+        .help:hover {
+            background-color: forestgreen;
+        }
 
     </style>
 </head>
@@ -73,8 +92,9 @@
 <section>
     <div class="all">
         <div class="container">
+            <section class="help"><span><strong>i</strong></span></section>
             <span class="price">old price</span>
-            <textarea name="oldprice" cols="12" rows="1" class="areaforprice" tabindex="1"></textarea>
+            <textarea name="oldprice" cols="12" rows="1" class="areaforprice" tabindex="1" dataset-tooltips=""></textarea>
             <span class="price">new price</span>
             <textarea name="newprice" cols="12" rows="1" class="areaforprice" tabindex="2"></textarea>
             <span class="price">DISCOUNT</span>
@@ -100,11 +120,13 @@
         var elem = options.elem;
         var footer = elem.getElementsByClassName('buttonfooter')[0];
 
-        var textareaOldPrice = document.getElementsByTagName('textarea')[0];
-        var textareaNewPrice = document.getElementsByTagName('textarea')[1];
+        var textareaOldPrice = elem.getElementsByTagName('textarea')[0];
+        var textareaNewPrice = elem.getElementsByTagName('textarea')[1];
 
         var fieldDiscountRound = document.getElementById('fieldDiscountRound');
         var fieldDiscount = document.getElementById('fieldDiscount');
+
+        var help = elem.querySelector('.help');
 
         function calculationDiscount() {
 
@@ -176,7 +198,14 @@
             }
 
         }
-    }
+    //блок help dataset-tooltips
+    help.onclick = showHelp;
+
+        function showHelp() {
+            alert('ok');
+        }
+
+    };
 
 </script>
 </body>
