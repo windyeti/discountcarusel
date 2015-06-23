@@ -100,58 +100,7 @@
         var elem = options.elem;
         var footer = elem.getElementsByClassName('buttonfooter')[0];
 
-        footer.onclick = onClick;
-        document.onkeydown = onKeyDown;
-
-        function onKeyDown(event) {
-            if(event.keyCode == 13) {
-
-                function replaceToDot(a) {
-                    var numberPosition = a.indexOf(",");
-                    if (numberPosition < 0) {
-                        return a;
-                    } else {
-                        a = a.slice(0, numberPosition) + '.' + a.slice(numberPosition + 1);
-                    }
-                    return a;
-                }
-
-                var textareaOldPrice = document.getElementsByTagName('textarea')[0];
-                var textareaNewPrice = document.getElementsByTagName('textarea')[1];
-
-                var textareaOldPriceValue = textareaOldPrice.value;
-                var textareaNewPriceValue = textareaNewPrice.value;
-
-                if (textareaOldPriceValue == '') {
-                    textareaOldPrice.focus();
-                    return;
-                } else if (textareaNewPriceValue == '') {
-                    textareaNewPrice.focus();
-                    return;
-                }
-
-                var textareaOldPriceValue = replaceToDot(textareaOldPriceValue);
-                var textareaNewPriceValue = replaceToDot(textareaNewPriceValue);
-
-                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
-                var fieldDiscount = document.getElementById('fieldDiscount');
-
-                var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
-
-                fieldDiscountRound.innerHTML = Math.round(discount);
-                if (Math.round(discount) > 20) {
-                    fieldDiscountRound.classList.add('green');
-                } else {
-                    fieldDiscountRound.classList.remove('green')
-                }
-                fieldDiscount.innerHTML = discount;
-                return false;
-            }
-        }
-
-        function onClick(event) {
-            var event = event || window.event;
-            var target = event.target;
+        function calculationDiscount() {
 
             function replaceToDot(a) {
                 var numberPosition = a.indexOf(",");
@@ -162,39 +111,58 @@
                 }
                 return a;
             }
-            if (!(target.className == 'button' || target.className == 'reset')) return;
-            if ( target.className == 'button' ) {
-                var textareaOldPrice = document.getElementsByTagName('textarea')[0];
-                var textareaNewPrice = document.getElementsByTagName('textarea')[1];
 
-                var textareaOldPriceValue = textareaOldPrice.value;
-                var textareaNewPriceValue = textareaNewPrice.value;
+            var textareaOldPrice = document.getElementsByTagName('textarea')[0];
+            var textareaNewPrice = document.getElementsByTagName('textarea')[1];
 
-                if (textareaOldPriceValue == '') {
-                    textareaOldPrice.focus();
-                    return;
-                } else if (textareaNewPriceValue == '') {
-                    textareaNewPrice.focus();
-                    return;
-                }
+            var textareaOldPriceValue = textareaOldPrice.value;
+            var textareaNewPriceValue = textareaNewPrice.value;
 
-                var textareaOldPriceValue = replaceToDot(textareaOldPriceValue);
-                var textareaNewPriceValue = replaceToDot(textareaNewPriceValue);
-
-                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
-                var fieldDiscount = document.getElementById('fieldDiscount');
-
-                var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
-
-                fieldDiscountRound.innerHTML = Math.round(discount);
-                if (Math.round(discount) > 20) {
-                    fieldDiscountRound.classList.add('green');
-                } else {
-                    fieldDiscountRound.classList.remove('green')
-                }
-                fieldDiscount.innerHTML = discount;
+            if (textareaOldPriceValue == '') {
+                textareaOldPrice.focus();
+                return;
+            } else if (textareaNewPriceValue == '') {
+                textareaNewPrice.focus();
+                return;
             }
-            if ( target.className == 'reset' ) {
+
+            var textareaOldPriceValue = replaceToDot(textareaOldPriceValue);
+            var textareaNewPriceValue = replaceToDot(textareaNewPriceValue);
+
+            var fieldDiscountRound = document.getElementById('fieldDiscountRound');
+            var fieldDiscount = document.getElementById('fieldDiscount');
+
+            var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
+
+            fieldDiscountRound.innerHTML = Math.round(discount);
+            if (Math.round(discount) > 20) {
+                fieldDiscountRound.classList.add('green');
+            } else {
+                fieldDiscountRound.classList.remove('green')
+            }
+            fieldDiscount.innerHTML = discount;
+        }
+
+        footer.onclick = onClick;
+        document.onkeydown = onKeyDown;
+
+        function onKeyDown(event) {
+            if (event.keyCode == 13) {
+
+                calculationDiscount();
+
+                return false;
+            }
+        }
+
+        function onClick(event) {
+            var event = event || window.event;
+            var target = event.target;
+
+            if (target.className == 'button') {
+                calculationDiscount();
+            }
+            if (target.className == 'reset') {
                 var textareaOldPrice = document.getElementsByTagName('textarea')[0];
                 var textareaNewPrice = document.getElementsByTagName('textarea')[1];
 
@@ -210,7 +178,6 @@
                 fieldDiscountRound.classList.remove('green');
 
                 document.getElementsByTagName('textarea')[0].focus();
-
             }
 
         }
