@@ -166,15 +166,14 @@
                 var textareaOldPrice = document.getElementsByTagName('textarea')[0];
                 var textareaNewPrice = document.getElementsByTagName('textarea')[1];
 
-                var textareaOldPriceValue = textareaOldPrice.value = '';
-                var textareaNewPriceValue = textareaNewPrice.value = '';
+                textareaOldPrice.value = '';
+                textareaNewPrice.value = '';
 
                 var fieldDiscountRound = document.getElementById('fieldDiscountRound');
                 var fieldDiscount = document.getElementById('fieldDiscount');
                 fieldDiscountRound.innerHTML = '';
                 fieldDiscount.innerHTML = '';
 
-                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
                 fieldDiscountRound.classList.remove('green');
 
                 document.getElementsByTagName('textarea')[0].focus();
