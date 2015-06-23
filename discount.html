@@ -100,6 +100,12 @@
         var elem = options.elem;
         var footer = elem.getElementsByClassName('buttonfooter')[0];
 
+        var textareaOldPrice = document.getElementsByTagName('textarea')[0];
+        var textareaNewPrice = document.getElementsByTagName('textarea')[1];
+
+        var fieldDiscountRound = document.getElementById('fieldDiscountRound');
+        var fieldDiscount = document.getElementById('fieldDiscount');
+
         function calculationDiscount() {
 
             function replaceToDot(a) {
@@ -111,9 +117,6 @@
                 }
                 return a;
             }
-
-            var textareaOldPrice = document.getElementsByTagName('textarea')[0];
-            var textareaNewPrice = document.getElementsByTagName('textarea')[1];
 
             var textareaOldPriceValue = textareaOldPrice.value;
             var textareaNewPriceValue = textareaNewPrice.value;
@@ -128,9 +131,6 @@
 
             var textareaOldPriceValue = replaceToDot(textareaOldPriceValue);
             var textareaNewPriceValue = replaceToDot(textareaNewPriceValue);
-
-            var fieldDiscountRound = document.getElementById('fieldDiscountRound');
-            var fieldDiscount = document.getElementById('fieldDiscount');
 
             var discount = 100 - ( textareaNewPriceValue * 100 / textareaOldPriceValue );
 
@@ -163,17 +163,14 @@
                 calculationDiscount();
             }
             if (target.className == 'reset') {
-                var textareaOldPrice = document.getElementsByTagName('textarea')[0];
-                var textareaNewPrice = document.getElementsByTagName('textarea')[1];
 
-                textareaOldPrice.value = '';
-                textareaNewPrice.value = '';
+                var textareaOldPriceValue = textareaOldPrice.value = '';
+                var textareaNewPriceValue = textareaNewPrice.value = '';
 
-                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
-                var fieldDiscount = document.getElementById('fieldDiscount');
                 fieldDiscountRound.innerHTML = '';
                 fieldDiscount.innerHTML = '';
 
+                var fieldDiscountRound = document.getElementById('fieldDiscountRound');
                 fieldDiscountRound.classList.remove('green');
 
                 document.getElementsByTagName('textarea')[0].focus();
