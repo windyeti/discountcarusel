@@ -71,7 +71,7 @@
             margin-top: -7px;
             margin-left: -7px;
             font: 16px Arial;
-            font-weight: none;
+            font-weight: normal;
             color: lightgray;
             
             width: 16px;
@@ -127,6 +127,8 @@
         var fieldDiscount = document.getElementById('fieldDiscount');
 
         var help = elem.querySelector('.help');
+        var textareaOldPriceHelp = document.createElement('div');
+
 
         function calculationDiscount() {
 
@@ -199,10 +201,26 @@
 
         }
     //блок help dataset-tooltips
-    help.onclick = showHelp;
+    help.onclick = helpShowHide;
 
-        function showHelp() {
-            alert('ok');
+        function helpShowHide() {
+            if(textareaOldPriceHelp.classList.contains('showHelp')) {
+                textareaOldPriceHelp.className = '';
+                return;
+            }
+
+            function getCoords(element) {
+               var elementCoords = element.getBoundingClientRect();
+                return {
+                    top: elementCoords.top,
+                    left: elementCoords.left,
+                    right: elementCoords.right,
+                    bottom: elementCoords.bottom
+                };
+            }
+
+            getCoords(textareaOldPrice, );
+            getCoords(textareaNewPrice);
         }
 
     };
