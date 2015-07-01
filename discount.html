@@ -13,6 +13,12 @@
             border: 1px solid lightgrey;
             border-radius: 5px;
         }
+        .container {
+            position: relative;
+            top: 0;
+            left: 0;
+            /*border: 1px solid blue;*/
+        }
         .price {
             display: block;
             font: 24px Arial;
@@ -85,6 +91,12 @@
         .help:hover {
             background-color: forestgreen;
         }
+        .showHelp {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px dashed green;
+        }
 
     </style>
 </head>
@@ -127,8 +139,6 @@
         var fieldDiscount = document.getElementById('fieldDiscount');
 
         var help = elem.querySelector('.help');
-        var textareaOldPriceHelp = document.createElement('div');
-
 
         function calculationDiscount() {
 
@@ -204,23 +214,28 @@
     help.onclick = helpShowHide;
 
         function helpShowHide() {
-            if(textareaOldPriceHelp.classList.contains('showHelp')) {
-                textareaOldPriceHelp.className = '';
-                return;
+//            if(textareaOldPriceHelp) {
+//                textareaOldPriceHelp.className = '';
+//                return;
+//            }
+
+            function setHelpBlock(element, text) {
+                var elementCoords = element.getBoundingClientRect();
+//              var elemCoords = elem.getBoundingClientRect();
+                var container = elem.getElementsByClassName('container')[0];
+                var containerCoords = container.getBoundingClientRect();
+
+                var textHelp = document.createElement('div');
+                textHelp.innerHTML = text;
+                textHelp.classList.add('showHelp');
+                container.appendChild(textHelp);
+                textHelp.style.top = elementCoords.top - containerCoords.top - 2 + 'px';
+                textHelp.style.left = elementCoords.left - containerCoords.left - 2 + 'px';
+                textHelp.style.width = element.offsetWidth + 200 + 'px';
+                textHelp.style.height = element.offsetHeight + 4 + 'px';
             }
 
-            function getCoords(element) {
-               var elementCoords = element.getBoundingClientRect();
-                return {
-                    top: elementCoords.top,
-                    left: elementCoords.left,
-                    right: elementCoords.right,
-                    bottom: elementCoords.bottom
-                };
-            }
-
-            getCoords(textareaOldPrice, );
-            getCoords(textareaNewPrice);
+            setHelpBlock(textareaOldPrice, 'Здесь будет текст, который описывает текстовое поле.');
         }
 
     };
