@@ -87,15 +87,28 @@
             border-radius: 8px;
             border: 1px solid lightgray;
             cursor: pointer;
+            transition: all 2s ease-out;
         }
         .help:hover {
+            color: #fff;
             background-color: forestgreen;
         }
         .showHelp {
+            opacity: 0.1;
             position: absolute;
             top: 0;
             left: 0;
-            border: 1px dashed green;
+            border: 1px dashed lightsteelblue;
+            border-radius: 6px;
+            font: 10px Arial;
+            text-align: left;
+            color: darkgrey;
+            background-color: whitesmoke;
+            transition: opacity 2s ease-out 1s;
+            -webkit-transition: opacity 2s ease 0.5s;
+        }
+        .showHelpOpacity {
+            opacity: 0.6;
         }
 
     </style>
@@ -214,28 +227,39 @@
     help.onclick = helpShowHide;
 
         function helpShowHide() {
-//            if(textareaOldPriceHelp) {
-//                textareaOldPriceHelp.className = '';
-//                return;
-//            }
+            var valueItemClassShowHelp = document.getElementsByClassName('showHelp');
+            if(valueItemClassShowHelp.length) {
+                for (var i = valueItemClassShowHelp.length - 1; i >= 0; i-- ) {
+                    valueItemClassShowHelp[i].parentNode.removeChild(valueItemClassShowHelp[i]);
+                }
+                help.innerHTML = '<span><strong>i</strong></span>';
+                return;
+            }
 
             function setHelpBlock(element, text) {
                 var elementCoords = element.getBoundingClientRect();
-//              var elemCoords = elem.getBoundingClientRect();
                 var container = elem.getElementsByClassName('container')[0];
                 var containerCoords = container.getBoundingClientRect();
 
                 var textHelp = document.createElement('div');
                 textHelp.innerHTML = text;
                 textHelp.classList.add('showHelp');
+                textHelp.style.paddingLeft = element.offsetWidth + 4 + 'px';
                 container.appendChild(textHelp);
                 textHelp.style.top = elementCoords.top - containerCoords.top - 2 + 'px';
                 textHelp.style.left = elementCoords.left - containerCoords.left - 2 + 'px';
-                textHelp.style.width = element.offsetWidth + 200 + 'px';
-                textHelp.style.height = element.offsetHeight + 4 + 'px';
+                textHelp.style.width = element.offsetWidth + 100 + 'px';
+                textHelp.style.height = element.offsetHeight + 3 + 'px';
+                textHelp.classList.add('showHelpOpacity');
+
+                help.innerHTML = 'X';
+
             }
 
-            setHelpBlock(textareaOldPrice, 'Здесь будет текст, который описывает текстовое поле.');
+            setHelpBlock(textareaOldPrice, 'Здесь вводим старую цену. Переключение между полями возможно по нажатию tab.');
+            setHelpBlock(textareaNewPrice, 'Сюда вбиваем новую цену.');
+            setHelpBlock(fieldDiscountRound, 'Здесь появится величина скидки с округлением до целого числа.');
+            setHelpBlock(fieldDiscount, 'Размер скидки без округления.');
         }
 
     };
