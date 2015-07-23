@@ -98,7 +98,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            border: 1px dashed lightsteelblue;
+            /*border: 1px dashed lightsteelblue;*/
             border-radius: 6px;
             font: 10px Arial;
             text-align: left;
@@ -110,10 +110,55 @@
         .showHelpOpacity {
             opacity: 0.6;
         }
+        .ifiebrowserdetected {
+            display: none;
+            font: 20px Arial;
+            text-align: center;
+            color: darkgrey;
+        }
 
     </style>
+
 </head>
 <body>
+<!--[if lte IE 10]>
+<style>
+    .all {
+        display: none;
+    }
+    .ifiebrowserdetected {
+        display: block;
+    }
+</style>
+
+<script>
+    (function() {
+        var oldPrice = prompt('Введите СТАРУЮ цену','');
+        var newPrice = prompt('Введите НОВУЮ цену','');
+
+        function replaceToDot(a) {
+            var numberPosition = a.indexOf(",");
+            if( numberPosition < 0 ) return a;
+
+            a = a.slice(0, numberPosition) + '.' + a.slice(numberPosition + 1);
+            return a;
+        }
+
+        var discount = 100 - ( replaceToDot(newPrice) * 100 / replaceToDot(oldPrice) );
+
+        alert('Старая цена:' + oldPrice + '; \n' + 'Новая цена: ' + newPrice + ';\n\n' + 'Скидка: ' +  Math.round(discount) + '; ' + '(' + discount + ')' );
+
+    })();
+
+</script>
+<![endif]-->
+
+<div class="ifiebrowserdetected">
+    <div><strong>Для запуска полноценной версии пользуйтесь современными браузерами</strong></div>
+    <a href="https://www.google.ru/chrome/browser/desktop/">Chrome</a>
+    <a href="https://www.mozilla.org/ru/firefox/new/">Firefox</a>
+</div>
+
 <section>
     <div class="all">
         <div class="container">
@@ -257,7 +302,7 @@
             }
 
             setHelpBlock(textareaOldPrice, 'Здесь вводим старую цену. Переключение между полями возможно по нажатию tab.');
-            setHelpBlock(textareaNewPrice, 'Сюда вбиваем новую цену.');
+            setHelpBlock(textareaNewPrice, 'Сюда вбиваем новую цену. И жмем энтер! Результат появится ниже). Для нового вычисления проще всего нажать F5 (обновить страницу).');
             setHelpBlock(fieldDiscountRound, 'Здесь появится величина скидки с округлением до целого числа.');
             setHelpBlock(fieldDiscount, 'Размер скидки без округления.');
         }
