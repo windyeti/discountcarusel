@@ -152,6 +152,37 @@
 
 </script>
 <![endif]-->
+<![if IE 10]>
+<style>
+    .all {
+        display: none;
+    }
+    .ifiebrowserdetected {
+        display: block;
+    }
+</style>
+
+<script>
+    (function() {
+        var oldPrice = prompt('Введите СТАРУЮ цену','');
+        var newPrice = prompt('Введите НОВУЮ цену','');
+
+        function replaceToDot(a) {
+            var numberPosition = a.indexOf(",");
+            if( numberPosition < 0 ) return a;
+
+            a = a.slice(0, numberPosition) + '.' + a.slice(numberPosition + 1);
+            return a;
+        }
+
+        var discount = 100 - ( replaceToDot(newPrice) * 100 / replaceToDot(oldPrice) );
+
+        alert('Старая цена:' + oldPrice + '; \n' + 'Новая цена: ' + newPrice + ';\n\n' + 'Скидка: ' +  Math.round(discount) + '; ' + '(' + discount + ')' );
+
+    })();
+
+</script>
+<![endif]>
 
 <div class="ifiebrowserdetected">
     <div><strong>Для запуска полноценной версии пользуйтесь современными браузерами</strong></div>
